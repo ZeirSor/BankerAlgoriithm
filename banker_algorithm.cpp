@@ -77,6 +77,66 @@ void restoreAllocation(vector<int> allocation);
 // ÇëÇó×ÊÔ´
 void requestResource();
 
+int main()
+{
+    system("cls");
+    initSystem();
+
+    while (1)
+    {
+        cout << "\t**********************************************\t" << endl;
+        cout << "\t********* Banker Algorithm Simulation ********\t" << endl;
+        cout << "\t0. Quit" << endl;
+        cout << "\t1. Manually allocate resources for a single process" << endl;
+        cout << "\t2. Find a safe sequence for the current process state" << endl;
+        cout << "\t3. Output all safe sequences" << endl;
+        cout << "\t4. Output the current resource status" << endl;
+        cout << "\t**********************************************\t" << endl;
+        cout << "\t**********************************************\t" << endl;
+
+        printAlignedMatrix();
+
+        char option;
+        cout << "please enter your option: ";
+        cin >> option;
+
+        switch (option)
+        {
+        case '0':return 0;
+        case '1':
+            finish = vector<bool>(processNums, false);
+            safeSeq.clear();
+            requestResource();
+            break;
+        case '2':
+            finish = vector<bool>(processNums, false);
+            safeSeq.clear();
+            bankAlgorithm();
+            break;
+        case '3':
+            finish = vector<bool>(processNums, false);
+            safeSeq.clear();
+            safeSequences.clear();
+            findAllSafeSequences(finish, safeSeq);
+            cout << "\nThe number of all security sequences is " << safeSequences.size() << ", as follows:" << endl;
+            printVector(safeSequences, 2);
+            break;
+        case '4':
+            printAlignedMatrix();
+            break;
+
+        default:
+            cout << "error, please input a digit from 1 to 4." << endl;
+            break;
+        }
+        cout << "Press any key to continue..." << endl;
+        cin.get();
+        cin.get();
+        system("cls");
+    }
+    return 0;
+}
+
 vector<int> initAvailable()
 {
     vector<int> available = TotalResources;
@@ -432,64 +492,4 @@ void requestResource()
         }
     }
     // printAlignedMatrix();
-}
-
-int main()
-{
-    system("cls");
-    initSystem();
-
-    while (1)
-    {
-        cout << "\t**********************************************\t" << endl;
-        cout << "\t********* Banker Algorithm Simulation ********\t" << endl;
-        cout << "\t0. Quit" << endl;
-        cout << "\t1. Manually allocate resources for a single process" << endl;
-        cout << "\t2. Find a safe sequence for the current process state" << endl;
-        cout << "\t3. Output all safe sequences" << endl;
-        cout << "\t4. Output the current resource status" << endl;
-        cout << "\t**********************************************\t" << endl;
-        cout << "\t**********************************************\t" << endl;
-
-        printAlignedMatrix();
-
-        char option;
-        cout << "please enter your option: ";
-        cin >> option;
-
-        switch (option)
-        {
-        case '0':return 0;
-        case '1':
-            finish = vector<bool>(processNums, false);
-            safeSeq.clear();
-            requestResource();
-            break;
-        case '2':
-            finish = vector<bool>(processNums, false);
-            safeSeq.clear();
-            bankAlgorithm();
-            break;
-        case '3':
-            finish = vector<bool>(processNums, false);
-            safeSeq.clear();
-            safeSequences.clear();
-            findAllSafeSequences(finish, safeSeq);
-            cout << "\nThe number of all security sequences is " << safeSequences.size() << ", as follows:" << endl;
-            printVector(safeSequences, 2);
-            break;
-        case '4':
-            printAlignedMatrix();
-            break;
-
-        default:
-            cout << "error, please input a digit from 1 to 4." << endl;
-            break;
-        }
-        cout << "Press any key to continue..." << endl;
-        cin.get();
-        cin.get();
-        system("cls");
-    }
-    return 0;
 }
